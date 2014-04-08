@@ -32,7 +32,7 @@ get_latest() {
     checked_get ${esg_dist_url}/${fetch_file} 
     ret=$?
     ((ret == 1)) && echo "ESGF Node install script (${fetch_file}) already up-to-date"
-    ((ret == 0)) && echo "Updated ESGF Node install script from PCMDI's ESGF distribution site at LLNL"
+    ((ret == 0)) && echo "Updated ESGF Node install script from ESGF github repository"
     (( ret > 1 )) && popd >& /dev/null && return 1
     chmod 755 ${fetch_file}
     [ -e ${init_scripts_dir}/${fetch_file} ] && cp -v ${fetch_file} ${init_scripts_dir}/${fetch_file}
