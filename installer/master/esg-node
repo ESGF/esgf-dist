@@ -1483,6 +1483,14 @@ setup_cdat() {
     mkdir -p ${workdir}
     [ $? != 0 ] && checked_done 1
     pushd ${workdir} >& /dev/null
+    #https://pypi.python.org/packages/source/l/lxml/lxml-3.2.5.tar.gz#md5=6c4fb9b1840631cff09b8229a12a9ef7
+    echo "$(pwd)"
+    if [[ ! -e lxml-3.2.5.tar.gz ]] || [[ "6c4fb9b1840631cff09b8229a12a9ef7" != "$(md5sum lxml-3.2.5.tar.gz | awk '{print $1}')" ]]; then
+        \rm lxml-3.2.5.tar.gz >& /dev/null
+        echo "wget https://pypi.python.org/packages/source/l/lxml/lxml-3.2.5.tar.gz" && wget --no-check-certificate https://pypi.python.org/packages/source/l/lxml/lxml-3.2.5.tar.gz
+        [ "6c4fb9b1840631cff09b8229a12a9ef7" = "$(md5sum lxml-3.2.5.tar.gz | awk '{print $1}')" ] && [OK] || [FAIL]
+    fi
+    echo "${cdat_home}/bin/pip install lxml-3.2.5.tar.gz" && ${cdat_home}/bin/pip install lxml-3.2.5.tar.gz
     local cdat_git_protocol="git://"
     #---------
     #Under FORCE (--force) semantics we clean everything out: the cloned repo and build dir
@@ -1684,14 +1692,6 @@ setup_esgcet() {
     [ $? != 0 ] && return 1
     pushd ${workdir} >& /dev/null
 
-    #https://pypi.python.org/packages/source/l/lxml/lxml-3.2.5.tar.gz#md5=6c4fb9b1840631cff09b8229a12a9ef7
-    echo "$(pwd)"
-    if [[ ! -e lxml-3.2.5.tar.gz ]] || [[ "6c4fb9b1840631cff09b8229a12a9ef7" != "$(md5sum lxml-3.2.5.tar.gz | awk '{print $1}')" ]]; then
-        \rm lxml-3.2.5.tar.gz >& /dev/null
-        echo "wget https://pypi.python.org/packages/source/l/lxml/lxml-3.2.5.tar.gz" && wget --no-check-certificate https://pypi.python.org/packages/source/l/lxml/lxml-3.2.5.tar.gz
-        [ "6c4fb9b1840631cff09b8229a12a9ef7" = "$(md5sum lxml-3.2.5.tar.gz | awk '{print $1}')" ] && [OK] || [FAIL]
-    fi
-    echo "${cdat_home}/bin/pip install lxml-3.2.5.tar.gz" && ${cdat_home}/bin/pip install lxml-3.2.5.tar.gz
 
     #clone publisher
     local publisher_git_protocol="git://"
@@ -7167,11 +7167,11 @@ main() {
         [ $((sel & INSTALL_BIT)) != 0 ] && setup_ant
         [ $((sel & INSTALL_BIT)) != 0 ] && setup_postgress
         [ $((sel & TEST_BIT))    != 0 ] && test_postgress
-        [ $((sel & INSTALL_BIT)) != 0 ] && [ $((sel & DATA_BIT+COMPUTE_BIT)) != 0 ] && setup_esgcet ${upgrade_mode}
-        [ $((sel & TEST_BIT))    != 0 ] && [ $((sel & DATA_BIT+COMPUTE_BIT)) != 0 ] && test_esgcet
         [ $((sel & INSTALL_BIT)) != 0 ] && setup_cmake
         [ $((sel & INSTALL_BIT)) != 0 ] && setup_cdat
         [ $((sel & TEST_BIT))    != 0 ] && test_cdat
+        [ $((sel & INSTALL_BIT)) != 0 ] && [ $((sel & DATA_BIT+COMPUTE_BIT)) != 0 ] && setup_esgcet ${upgrade_mode}
+        [ $((sel & TEST_BIT))    != 0 ] && [ $((sel & DATA_BIT+COMPUTE_BIT)) != 1 ] && test_esgcet
         [ $((sel & INSTALL_BIT)) != 0 ] && setup_tomcat ${upgrade_mode}
         [ $((sel & TEST_BIT))    != 0 ] && test_tomcat
         [ $((sel & INSTALL_BIT)) != 0 ] && [ $((sel & DATA_BIT+COMPUTE_BIT)) != 0 ] && setup_tds ${upgrade_mode}
