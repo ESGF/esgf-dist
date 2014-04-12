@@ -7171,7 +7171,7 @@ main() {
         [ $((sel & INSTALL_BIT)) != 0 ] && setup_cdat
         [ $((sel & TEST_BIT))    != 0 ] && test_cdat
         [ $((sel & INSTALL_BIT)) != 0 ] && [ $((sel & DATA_BIT+COMPUTE_BIT)) != 0 ] && setup_esgcet ${upgrade_mode}
-        [ $((sel & TEST_BIT))    != 0 ] && [ $((sel & DATA_BIT+COMPUTE_BIT)) != 1 ] && test_esgcet
+        [ $((sel & TEST_BIT))    != 0 ] && [ $((sel & DATA_BIT+COMPUTE_BIT)) != 0 ] && test_esgcet
         [ $((sel & INSTALL_BIT)) != 0 ] && setup_tomcat ${upgrade_mode}
         [ $((sel & TEST_BIT))    != 0 ] && test_tomcat
         [ $((sel & INSTALL_BIT)) != 0 ] && [ $((sel & DATA_BIT+COMPUTE_BIT)) != 0 ] && setup_tds ${upgrade_mode}
