@@ -129,8 +129,7 @@ init() {
     #NOTE: esg-dist = v1.0.6
 
     cdat_version=${cdat_version:-"1.5.0"}
-    #cdat_tag="1.5.0"
-    cdat_tag="bug445_pylibxml2_RH5_issue"
+    cdat_tag="esgf-v1.7.0"
     esgcet_version=${esgcet_version:-"2.11.1"}
     publisher_tag=${publisher_tag:-"v2.11.1"}
 
@@ -298,10 +297,8 @@ init() {
     #postgress_dist_url=${esg_dist_url}/postgresql/source/v${postgress_version}/postgresql-${postgress_version}.tar.gz
     cmake_workdir=${workdir}/cmake
     cmake_repo=http://cmake.org/cmake.git
-    #cdat_repo=git://github.com/UV-CDAT/uvcdat.git
-    #cdat_repo_http=http://github.com/UV-CDAT/uvcdat.git
-    cdat_repo=git://github.com/UV-CDAT/uvcdat-devel.git
-    cdat_repo_http=http://github.com/UV-CDAT/uvcdat-devel.git
+    cdat_repo=git://github.com/UV-CDAT/uvcdat.git
+    cdat_repo_http=http://github.com/UV-CDAT/uvcdat.git
     publisher_repo=git://github.com/ESGF/esg-publisher.git
     publisher_repo_http=http://github.com/ESGF/esg-publisher.git
     esgcet_egg_file=esgcet-${esgcet_version}-py${python_version}.egg
