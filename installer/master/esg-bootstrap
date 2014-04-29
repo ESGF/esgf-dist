@@ -9,7 +9,7 @@
 #uses: wget
 devel=${devel:-0}
 install_prefix=${prefix:-"/usr/local"}
-esg_dist_url=https://raw.githubusercontent.com/ESGF/esgf-dist/master/installer$( ((devel == 1)) && echo "/devel" || echo "/master")
+esg_dist_url=https://raw.githubusercontent.com/ESGF/esgf-dist/debug/installer$( ((devel == 1)) && echo "/devel" || echo "/master")
 
 id_check() {
     id | grep root >& /dev/null
@@ -18,7 +18,7 @@ id_check() {
 }
 
 get_latest() {
-	esg_dist_url=https://raw.githubusercontent.com/ESGF/esgf-dist/master/installer$( ((devel == 1)) && echo "/devel" || echo "/master")
+	esg_dist_url=https://raw.githubusercontent.com/ESGF/esgf-dist/debug/installer$( ((devel == 1)) && echo "/devel" || echo "/master")
     script_install_dir=${install_prefix}/bin
     mkdir -p ${script_install_dir}
     #NOTE: boot script location is a RedHat/CentOS thing... to make this cross distro compatible clean this up.
@@ -148,7 +148,7 @@ done
 
 if id_check 
 then
-    (( devel == 1 )) && echo "(Setup to pull from DEVELOPMENT tree...)" && esg_dist_url=https://raw.githubusercontent.com/ESGF/esgf-dist/master/installer$( ((devel == 1)) && echo "/devel" || echo "/master")
+    (( devel == 1 )) && echo "(Setup to pull from DEVELOPMENT tree...)" && esg_dist_url=https://raw.githubusercontent.com/ESGF/esgf-dist/debug/installer$( ((devel == 1)) && echo "/devel" || echo "/master")
     self_verify
     (( $? > 0 )) && printf "WARNING: $0 could not be verified!! \n(This file, $(readlink -f ${0}), may have been tampered with or there is a newer version posted at the distribution server.\nPlease re-fetch this script.)\n\n" && exit 1
     echo "checking for updates for the ESGF Node"
