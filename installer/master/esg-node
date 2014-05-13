@@ -81,7 +81,7 @@ use_local_files=0
 
 progname="esg-node"
 script_version="v1.7.0-phoenix-release-master"
-script_release="phoenix"
+script_release="Phoenix Release"
 
 envfile="/etc/esg.env"
 
@@ -5516,7 +5516,7 @@ self_verify() {
 
     [ -z "$(echo ${script_version} | sed -n 's/-devel/\0/p')" ] && devel=0 || devel=1
 
-	_verify https://raw.githubusercontent.com/ESGF/esgf-dist/master/installer$( ((devel == 1)) && echo "/devel" || echo "master") >& /dev/null
+	_verify https://raw.githubusercontent.com/ESGF/esgf-dist/master/installer$( ((devel == 1)) && echo "/devel" || echo "") >& /dev/null
     local ret=$?
     if (( ${ret} == 3 )); then
         printf "WARNING: $0 could not be verified!! \n(This file, ${0}, may have been tampered with or there is a newer version posted at the distribution server.\nPlease update this script.)\n\n"

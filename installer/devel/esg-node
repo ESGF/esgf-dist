@@ -81,7 +81,7 @@ use_local_files=0
 
 progname="esg-node"
 script_version="v1.7.0-phoenix-devel"
-script_release="Phoenix Release"
+script_release="Phoenix"
 
 envfile="/etc/esg.env"
 
